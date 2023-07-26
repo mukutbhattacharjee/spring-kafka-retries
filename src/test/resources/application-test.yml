@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:8092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        allow.auto.create.topics: true
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.example.learning.springkafkaretries.model.CustomEvent
+    properties:
+      security:
+        protocol: PLAINTEXT
+topic: test
+kafka:
+  partitions: 1
+  broker-properties:
+    listeners: "PLAINTEXT://localhost:8092"
+    port: "8092"
+retry:
+  attempts: 3
+  delay: 2000
+  delay.multiplier: 2
